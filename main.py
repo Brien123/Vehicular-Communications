@@ -4,6 +4,7 @@ from tkinter.scrolledtext import ScrolledText
 from asyncio.subprocess import PIPE
 import logging
 import threading
+import sys  # Import sys to access the current Python executable
 
 logging.basicConfig(level=logging.INFO)
 
@@ -66,10 +67,10 @@ async def start_obu_system(command, system_name, app):
 async def start_all_systems(app):
     """Starting all OBU systems concurrently."""
     await asyncio.gather(
-        start_obu_system(["python", "keyless_obu/keyless.py"], "Keyless", app),
-        start_obu_system(["python", "toll_obu/toll.py"], "Toll", app),
-        start_obu_system(["python", "infot_obu/infot.py"], "Infotainment", app),
-        start_obu_system(["python", "hmi_obu/hmi.py"], "HMI", app),
+        start_obu_system([sys.executable, "keyless_obu/keyless.py"], "Keyless", app),
+        start_obu_system([sys.executable, "toll_obu/toll.py"], "Toll", app),
+        start_obu_system([sys.executable, "infot_obu/infot.py"], "Infotainment", app),
+        start_obu_system([sys.executable, "hmi_obu/hmi.py"], "HMI", app),
     )
 
 
